@@ -1,0 +1,2 @@
+module Mining::TextHelper
+end
