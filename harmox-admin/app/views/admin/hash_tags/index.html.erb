@@ -1,0 +1,41 @@
+<%= render partial: 'layouts/header', locals: { h1: 'hash登録管理', breadcrumb: '<li class="active">HASH管理</li>' } %>
+
+<div class="container">
+  <h2>❏ 登録</h2>
+
+  <div style="padding-bottom: 10px;">
+    <%= form_for @hash_tag, url: {action: 'create'} do |f| %>
+    <p style="color: green;"><%= notice %></p>
+    <p style="color: red;"><%= alert %></p>
+    <p><%= f.label :hash_tag, "hash_tag" %><%= f.text_field :hash_tag %></p>
+    <%= button_tag('hash登録', class: "btn btn-info") %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <h2>❏ 一覧</h2>
+
+  <div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-condensed">
+        <tr>
+          <th>No.</th>
+          <th>id</th>
+          <th>HashTag</th>
+        </tr>
+        <% if hash_tags? %>
+          <% @hash_tags.each_with_index do |h,cnt| %>
+          <tr>
+            <td><%= cnt+1 %></td>
+            <td><%= h.id %></td>
+            <td><%= h.hash_tag %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+
+</div>
+
+<%= render 'layouts/footer' %>

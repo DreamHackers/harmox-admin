@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  twitter_name: MyString
+  twitter_id: MyString
+  access_token: MyString
+  deleted: false
+
+two:
+  twitter_name: MyString
+  twitter_id: MyString
+  access_token: MyString
+  deleted: false

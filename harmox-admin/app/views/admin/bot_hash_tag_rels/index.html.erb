@@ -1,0 +1,48 @@
+<%= render partial: 'layouts/header', locals: { h1: 'BotHash紐付け管理', breadcrumb: '<li class="active">BOT-HASH関連管理</li>' } %>
+
+<div class="container">
+  <h2>❏ 登録</h2>
+
+  <div style="padding-bottom: 10px;">
+    <%= form_for @bot_hash_tag_rel, url: {action: 'create'} do |f| %>
+    <p style="color: green;"><%= notice %></p>
+    <p style="color: red;"><%= alert %></p>
+    <p><%= f.label :bot_id, "bot_id" %><%= f.text_field :bot_id %></p>
+    <p><%= f.label :hash_tag_id, "hash_tag_id" %><%= f.text_field :hash_tag_id %></p>
+    <%= button_tag('BotHash紐付け登録', class: "btn btn-info") %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <h2>❏ 一覧</h2>
+
+  <div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-condensed">
+        <tr>
+          <th>No.</th>
+          <th>id</th>
+          <th>BotID</th>
+          <th>Twitter名</th>
+          <th>HashTagId</th>
+          <th>HashTag</th>
+        </tr>
+        <% if bot_hash_tag_rels? %>
+          <% @bot_hash_tag_rels.each_with_index do |b,cnt| %>
+          <tr>
+            <td><%= cnt+1 %></td>
+            <td><%= b.id %></td>
+            <td><%= b.bot_id %></td>
+            <td><%= b.bot.twitter_name %></td>
+            <td><%= b.hash_tag_id %></td>
+            <td><%= b.hash_tag.hash_tag %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+
+</div>
+
+<%= render 'layouts/footer' %>

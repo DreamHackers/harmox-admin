@@ -1,0 +1,15 @@
+<hr>
+
+<h2>❏ <%= h2 %></h2>
+
+<div style="padding-bottom: 10px;">
+  <%= form_tag url do %>
+  <p>Bot id<%= text_field field_name, id %></p>
+  <% if p_elements.present? %>
+    <% p_elements.each do |p| %>
+      <p><%= p[:text] %><%= text_field p[:field_name], p[:id] %></p>
+    <% end %>
+  <% end %>
+  <%= button_tag('Tweet', class: "btn btn-info") %>
+  <% end %>
+</div>

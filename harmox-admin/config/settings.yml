@@ -1,0 +1,25 @@
+defaults: &defaults
+
+development:
+  <<: *defaults
+  twitter:
+    consumer_key: CTGO18drqCEpTMbPhYucIV3Hc
+    consumer_secret: 90EU6sv8Bw3PRgM8H0yLrAnXoo8jXZavVx1FsibiRe1DzQAlYw
+    retweet_potential_number: 100
+    follow_potential_number: 10
+
+test:
+  <<: *defaults
+  twitter:
+    consumer_key: CTGO18drqCEpTMbPhYucIV3Hc
+    consumer_secret: 90EU6sv8Bw3PRgM8H0yLrAnXoo8jXZavVx1FsibiRe1DzQAlYw
+    retweet_potential_number: 100
+    follow_potential_number: 10
+
+production:
+  <<: *defaults
+  twitter:
+    consumer_key: CTGO18drqCEpTMbPhYucIV3Hc
+    consumer_secret: 90EU6sv8Bw3PRgM8H0yLrAnXoo8jXZavVx1FsibiRe1DzQAlYw
+    retweet_potential_number: 100
+    follow_potential_number: 10

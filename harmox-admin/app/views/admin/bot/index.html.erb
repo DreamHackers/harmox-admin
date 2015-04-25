@@ -1,0 +1,67 @@
+<%= render partial: 'layouts/header', locals: { h1: 'bot登録管理', breadcrumb: '<li class="active">BOT管理</li>' } %>
+
+<div class="container">
+  <h2>❏ 登録</h2>
+
+  <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+
+  <div style="padding-bottom: 10px;">
+    <%= form_for @bot, url: {action: 'create'} do |f| %>
+    <%= render 'shared/error_messages' %>
+    <p style="color: green;"><%= notice %></p>
+    <p style="color: red;"><%= alert %></p>
+    <p><b>YourAccount：<%= get_twitter_name %><%= get_twitter_id %></b></p>
+    <%= button_tag('bot登録', class: "btn btn-info") %>
+    <% end %>
+  </div>
+
+  <%= render partial: 'test', locals:
+    { h2: 'TweetTest', url: '/admin/twitter/tweet', field_name: 'tweet', id: 'bot_id', p_elements: [text: 'Tweet', field_name: 'tweet', id: 'content'] } %>
+
+  <%= render partial: 'test', locals: { h2: 'FollowTest', url: '/admin/twitter/follow', field_name: 'follow', id: 'bot_id', p_elements: nil } %>
+
+  <%= render partial: 'test', locals: { h2: 'RetweetTest', url: '/admin/twitter/retweet', field_name: 'retweet', id: 'bot_id', p_elements: nil } %>
+
+  <h2>❏ 一覧</h2>
+
+  <div>
+    <p style="color: green;"><%= notice %></p>
+    <p style="color: green;"><%= flash[:delete] %></p>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-condensed">
+        <tr>
+          <th>No.</th>
+          <th>id</th>
+          <th>twitter_name</th>
+          <th>twitter_id</th>
+          <th>hash_tags</th>
+          <th>access_token</th>
+          <th>access_secret</th>
+          <th>削除</th>
+        </tr>
+        <% if bots? %>
+          <% @bots.each_with_index do |b,cnt| %>
+          <tr>
+            <%= form_tag do %>
+            <td><%= cnt+1 %></td>
+            <td><%= b.id %></td>
+            <td><%= b.twitter_name %></td>
+            <td><%= b.twitter_id %></td>
+            <td>
+              <% b.hash_tags.each do |h| %>
+                <%= h.hash_tag %>
+              <% end %>
+            </td>
+            <td><%= b.access_token %></td>
+            <td><%= b.access_secret %></td>
+            <td><%= link_to('bot削除', "bot/#{b.id}", method: :delete) %></td>
+            <% end %>
+          </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%= render 'layouts/footer' %>

@@ -1,0 +1,18 @@
+language: ruby
+rvm:
+  - 2.2.1
+  # - ruby-head
+  # - rbx-2
+  # - jruby-head
+bundler_args: --without development --deployment
+cache: bundler
+script:
+  - RAILS_ENV=test bundle exec rake db:drop
+  - RAILS_ENV=test bundle exec rake db:create
+  # - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec/
+branches:
+  only:
+    - master
+    - develop

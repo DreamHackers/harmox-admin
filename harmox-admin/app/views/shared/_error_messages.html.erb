@@ -1,0 +1,9 @@
+<% if @bot.errors.any? %>
+  <div class="" role="">
+    <span style="color: red;"><%= @bot.errors.count %>つのエラーが発生:
+    <% @bot.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+    </span>
+  </div>
+<% end %>
