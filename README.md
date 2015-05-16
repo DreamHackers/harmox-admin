@@ -17,7 +17,7 @@ harmoxの総合リポジトリです
 |project|detail|
 |:--:|:--:|
 |harmox-admin|管理画面|
-|harmox-admin|ユーザ画面|
+|harmox-user|ユーザ画面|
 |harmox-analytics|分析画面|
 
 # ルール
