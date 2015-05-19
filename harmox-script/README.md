@@ -1,9 +1,12 @@
-# 設計
+# Setting
 
-* opt: アプリに依存しないスクリプト格納
-  * build: ビルドスクリプト
-  * middleware: ミドルウェア
-    * db: DBサーバスクリプト
-    * http: HTTPサーバスクリプト 
- 
+* opt: 
+  * build:
+  * middleware:
+    * db: 
+    * http: 
 
+* Porling
+```
+H/30 * * * *
+```
