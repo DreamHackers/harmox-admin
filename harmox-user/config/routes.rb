@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  namespace :mining do
-    # root to: ''
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  get 'home/index'
 
-    resource :text
-  end
+  get 'home/show'
+
+  root to: "home#index"
 end
