@@ -24,4 +24,9 @@ Rails.application.routes.draw do
     put ':username' => 'devise/registrations#update'
     delete ':username' => 'devise/registrations#destroy'
   end
+
+  resources :bots, :module => :bot, :path => ':username', :except => :edit
+  match ":username/:id/settings", :to => 'bot/bots#settings', :via => :get, :as => :edit_bot
+
+  match ":username/bots/auth/twitter", :to => 'bot/bot_omniauth_callbacks#twitter', :via => [:get, :post], :as => :bot_omniauth_authorize_twitter
 end

@@ -1,0 +1,17 @@
+
+
+<div class="container">
+  <h2>❏ 登録</h2>
+
+  <%= link_to "Sign in with Twitter", bot_omniauth_authorize_twitter_path %>
+
+  <div style="padding-bottom: 10px;">
+    <%= form_for @bot, url: {action: 'create'} do |f| %>
+
+    <p style="color: green;"><%= notice %></p>
+    <p style="color: red;"><%= alert %></p>
+
+    <%= button_tag('bot登録', class: "btn btn-info") %>
+    <% end %>
+  </div>
+</div>
