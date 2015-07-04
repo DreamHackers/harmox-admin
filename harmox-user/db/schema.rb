@@ -11,7 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601144616) do
+ActiveRecord::Schema.define(version: 20150618124222) do
+
+  create_table "bot_hash_tag_rels", force: :cascade do |t|
+    t.integer  "bot_id",      limit: 4
+    t.integer  "hash_tag_id", limit: 4
+    t.boolean  "deleted",     limit: 1, default: false, null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  create_table "bots", force: :cascade do |t|
+    t.string   "twitter_name",  limit: 255
+    t.string   "twitter_id",    limit: 255,                 null: false
+    t.string   "access_token",  limit: 255
+    t.string   "access_secret", limit: 255
+    t.boolean  "deleted",       limit: 1,   default: false, null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  create_table "hash_tags", force: :cascade do |t|
+    t.string   "hash_tag",   limit: 255,                 null: false
+    t.boolean  "deleted",    limit: 1,   default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  create_table "realtime_bot_hash_tag_trackings", force: :cascade do |t|
+    t.integer  "bot_id",     limit: 4,                     null: false
+    t.integer  "bot_type",   limit: 4
+    t.text     "content",    limit: 65535
+    t.boolean  "deleted",    limit: 1,     default: false, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -29,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150601144616) do
     t.string   "uid",                 limit: 255
   end
 
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
