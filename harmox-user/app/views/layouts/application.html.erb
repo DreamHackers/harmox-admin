@@ -2,11 +2,14 @@
 <html>
 <head>
   <title>Harmox</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
 </head>
 <body>
 
   <header>
-    <nav>
+    <nav class="navbar navbar-default">
       <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
       <% if user_signed_in? %>
         <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
@@ -22,11 +25,18 @@
       <% end %>
     </nav>
   </header>
-
+  <div class="container">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
   <%= yield %>
 
+  </div>
+
+  <footer align="center">
+    <nav>
+      <p>&copy; <%= Time.now.year %> All Rights Reserved.</p>
+    </nav>
+  </footer>
 </body>
 </html>
