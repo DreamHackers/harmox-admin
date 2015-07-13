@@ -1,4 +1,8 @@
 class Bot < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :omniauthable, :omniauth_providers => [:twitter]
+
   has_many :bot_hash_tag_rels
   has_many :hash_tags, :through => :bot_hash_tag_rels
 

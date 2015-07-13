@@ -2,12 +2,20 @@ require 'oauth'
 
 class Bot::BotsController < ApplicationController
   include BotConcern
+  before_action :authenticate_user!
 
   def show
   end
 
   def new
     bot_new
+    render 'bot/bots/new'
+  end
+
+  def index
+    if params[:username] == "new"
+      self.new
+    end
   end
 
   def create
@@ -21,6 +29,9 @@ class Bot::BotsController < ApplicationController
       bot_new
       render 'admin/bot/new'
     end
+  end
+
+  def edit
   end
 
   def destroy
