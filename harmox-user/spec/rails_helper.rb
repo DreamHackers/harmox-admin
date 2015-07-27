@@ -1,4 +1,4 @@
-# spec/rails_helper.rb
+require 'spec_helper'
 
 RSpec.configure do |config|
   config.before(:all) do
