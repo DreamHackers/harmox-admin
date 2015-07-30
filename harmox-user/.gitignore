@@ -9,3 +9,5 @@
 !/log/.keep
 /tmp
 .log
+tmp/*
+tmp
