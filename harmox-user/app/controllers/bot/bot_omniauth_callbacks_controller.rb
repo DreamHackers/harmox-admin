@@ -1,5 +1,6 @@
 class Bot::BotOmniauthCallbacksController < ApplicationController
   require 'oauth'
+  include BotConcern
 
   def oauth_consumer
     return OAuth::Consumer.new(Settings.twitter.consumer_key, Settings.twitter.consumer_secret, site: 'https://api.twitter.com')
@@ -29,13 +30,15 @@ class Bot::BotOmniauthCallbacksController < ApplicationController
     end
 
     bot = Bot.new
+    bot.user_id = current_user.id
     bot.access_token = access_token.token
     bot.access_secret = access_token.secret
     bot.twitter_id = access_token.params[:user_id]
     bot.twitter_name = access_token.params[:screen_name]
-    bot.save
-    
-    redirect_to root_path
+
+    session[:bot] = bot
+
+    redirect_to new_bot_path
   end
 
   def destroy

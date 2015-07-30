@@ -1,6 +1,7 @@
 class CreateBots < ActiveRecord::Migration
   def change
     create_table :bots do |t|
+      t.integer :user_id,       null: false
       t.string  :twitter_name
       t.string  :twitter_id,    null: false
       t.string  :access_token

@@ -8,8 +8,9 @@ class Bot::BotsController < ApplicationController
   end
 
   def new
-    bot_new
-    render 'bot/bots/new'
+    set_twitter_info
+
+    render 'new'
   end
 
   def index
@@ -24,7 +25,7 @@ class Bot::BotsController < ApplicationController
 
     if bot.save
       delete_authinfo_to_session
-      redirect_to(admin_bot_index_path, notice: "登録完了!!")
+      redirect_to(edit_bot_path(current_user.username, bot.id))
     else
       bot_new
       render 'admin/bot/new'
@@ -54,12 +55,18 @@ class Bot::BotsController < ApplicationController
 
   private
     def set_twitter_info
-      bot = Bot.new
-      bot.access_token = session[:access_token]
-      bot.access_secret = session[:access_secret]
-      bot.twitter_id = session[:twitter_id]
-      bot.twitter_name = session[:twitter_name]
-      bot
+      bot = session[:bot]
+
+      unless bot.nil?
+        @bot = Bot.new
+        @bot.user_id = bot["user_id"]
+        @bot.access_token = bot["access_token"]
+        @bot.access_secret = bot["access_secret"]
+        @bot.twitter_id = bot["twitter_id"]
+        @bot.twitter_name = bot["twitter_name"]
+      end
+
+      @bot
     end
 
     def find_destroy_bot
