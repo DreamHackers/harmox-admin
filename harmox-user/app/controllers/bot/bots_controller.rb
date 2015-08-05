@@ -58,6 +58,10 @@ class Bot::BotsController < ApplicationController
       bot = session[:bot]
 
       unless bot.nil?
+        unless Bot.find_by_twitter_id(bot["twitter_id"]).nil?
+          return
+        end
+
         @bot = Bot.new
         @bot.user_id = bot["user_id"]
         @bot.access_token = bot["access_token"]
