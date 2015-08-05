@@ -3,6 +3,8 @@ class Bot < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :omniauthable, :omniauth_providers => [:twitter]
 
+  belongs_to :user
+
   has_many :bot_hash_tag_rels
   has_many :hash_tags, :through => :bot_hash_tag_rels
 

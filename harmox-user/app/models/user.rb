@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:twitter]
 
+  has_many :bots, dependent: :destroy
+
   validates :username, presence: true, uniqueness: true
 
 def self.from_omniauth(auth)

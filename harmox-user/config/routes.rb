@@ -23,9 +23,10 @@ Rails.application.routes.draw do
     delete ':username' => 'devise/registrations#destroy'
   end
 
-  resources :bots, :module => :bot, :path => ':username', :except => [:edit, :new]
+  resources :bots, :module => :bot, :path => ':username', :except => [:edit, :new, :create]
   match ":username/:id/settings", :to => 'bot/bots#edit', :via => :get, :as => :edit_bot
   match "new", :to => 'bot/bots#new', :via => :get, :as => :new_bot
+  match ":username/bots", :to => 'bot/bots#create', :via => :post, :as => :create_bot
 
   match 'bots/auth/twitter/callback', :to => 'bot/bot_omniauth_callbacks#callback', :via => [:get, :post], :as => :bot_omniauth_callback
   match 'bots/auth/twitter/authorize', :to => 'bot/bot_omniauth_callbacks#authorize', :via => [:get, :post], :as => :bot_omniauth_authorize

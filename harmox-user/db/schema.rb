@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150618124222) do
   end
 
   create_table "bots", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4,                   null: false
     t.string   "twitter_name",  limit: 255
     t.string   "twitter_id",    limit: 255,                 null: false
     t.string   "access_token",  limit: 255
@@ -63,7 +64,6 @@ ActiveRecord::Schema.define(version: 20150618124222) do
     t.string   "uid",                 limit: 255
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
