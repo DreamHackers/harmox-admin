@@ -59,7 +59,7 @@ class Bot::BotsController < ApplicationController
 
       unless bot.nil?
         unless Bot.find_by_twitter_id(bot["twitter_id"]).nil?
-          return
+          return nil
         end
 
         @bot = Bot.new
