@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  resources :hash_tags, :module => :bot, :except => [:show, :edit, :update, :destroy]
+
   devise_scope :user do
     # sessions
     get 'signin' => 'devise/sessions#new', as: :new_user_session
