@@ -9,13 +9,17 @@ harmoxの総合リポジトリです
 ```
 .
 ├── README.md
+├── harmox-script
 ├── harmox-admin
+├── harmox-user
 └── harmox-analytics
 ```
 
 |project|detail|
 |:--:|:--:|
+|harmox-script|スクリプト|
 |harmox-admin|管理画面|
+|harmox-user|ユーザ画面|
 |harmox-analytics|分析画面|
 
 # ルール
@@ -49,6 +53,7 @@ harmoxの総合リポジトリです
 |infra|インフラタスク|
 |user|ユーザ画面タスク|
 |manage|非機能要件。例）契約|
+|script|スクリプトタスク|
 
 ### 任意ラベル
 
