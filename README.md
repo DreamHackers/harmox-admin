@@ -1,67 +1,115 @@
-# harmox-app
-harmoxの総合リポジトリです
+#harmox-admin
+---
+## how to use
 
-## privateにしておくspan
-2015/04〜2017/03
+[![Join the chat at https://gitter.im/pollseed/twbm](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pollseed/twbm?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Circle CI](https://circleci.com/gh/pollseed/twbm/tree/develop.svg?style=svg)](https://circleci.com/gh/pollseed/twbm/tree/develop)
+[![Build Status](https://travis-ci.org/pollseed/twbm.svg)](https://travis-ci.org/pollseed/twbm)
+[![Code Climate](https://codeclimate.com/github/pollseed/twbm/badges/gpa.svg)](https://codeclimate.com/github/pollseed/twbm)
+[![Dependency Status](https://gemnasium.com/pollseed/twbm.svg)](https://gemnasium.com/pollseed/twbm)
+[![Inline docs](http://inch-ci.org/github/pollseed/twbm.svg?branch=master&style=shields)](http://inch-ci.org/github/pollseed/twbm)
 
-## Tree
+
+1. [twitter developer](https://apps.twitter.com/)で登録後キーなどを取得
+2. キーをソースに埋め込み
+3. 以下コードでツイート
 
 ```
-.
-├── README.md
-├── harmox-script
-├── harmox-admin
-├── harmox-user
-└── harmox-analytics
+$ bundle exec rake twitter:tweet
 ```
 
-|project|detail|
-|:--:|:--:|
-|harmox-script|スクリプト|
-|harmox-admin|管理画面|
-|harmox-user|ユーザ画面|
-|harmox-analytics|分析画面|
+## modelの適用
 
-# ルール
+```.sh
+$ bundle exec rake db:migrate
+$ RAILS_ENV=test bundle exec rake db:migrate --trace
+$ bundle exec rake spec
+```
+## trackings
+* 分析機能は、このリポジトリでは作らない。サーバ別立てし、そこで展開する機能とする
+* 現状、botの行動を全てrealtime_{行動するテーブル名}に保管してほしい。
 
-## Issues
-* 気になったことを乱雑でもいいのでこれでチケットを作る
-* ラベル、優先度だけは何かしらつけてほしい
-* 担当者、とかマイルストーンは確定していれば付ける
+### analysisプロジェクトについて
+* このプロジェクトでは、基本realtimeしか関連しない
+* データを分析して展開する機能として君臨する
+* クローズ機能しかないが、今後はAPIなどに貢献できたらいいという構想がある
 
-## 開発の流れ
-1. Issuesで作成したものを元に優先度を加味し開発を進める
-* 対応中のチケットには「対応中」とコメントを残す。さらに対応時に発生したことなどをそこにコメント残しておく
-* Issuesに#の番号が隣についているので、それをコミットする時に付与すること
+## directory
+以下は、このpjのadminとjobの分け方サンプル
+なぜadminとjobを一緒にしているのかはgoogledocの通り
 
-2. 設定ファイルを保存する時
-* centos/configに保存して下さい
-* `scp -i ~/key/hogehoge.pem -P 22 ec2-user@XX.XX.XX.XX:~/app/hogehoge.conf ./`
+### admin
+* 管理機能
+* 変わった使い方は今のところない
+* private化完了
+* bitbucketを参照
 
-## ラベルについて
-* 大体以下のような形で
-* ラベルを追加したらここに追記して下さい
- 
-### 必須ラベル
+### job
+* cronで起動する形を基本形態とする
+* config/schedule.rbを使う→job製作者が適宜編集する
 
-|label|詳細|
-|:--:|:--:|
-|admin|管理画面タスク|
-|analytics|分析画面タスク|
-|archi|アーキテクチャ,ベースとなるもの|
-|batch|バッチ機能タスク|
-|infra|インフラタスク|
-|user|ユーザ画面タスク|
-|manage|非機能要件。例）契約|
-|script|スクリプトタスク|
+```.sh
+$ bundle exec whenever
+$ bundle exec crontab -e
+$ bundle exec whenever --update-crontab
+$ bundle exec whenever --clear-crontab
+```
 
-### 任意ラベル
+## Httpサーバ
+* Nginx
+※設定はslackへ
 
-|label|詳細|
-|:--:|:--:|
-|bug|バグタスク|
-|design|デザインタスク|
-|fix|バグより優先度は低いが、いつか治したいタスク|
-|question|質問タスク→担当者を入れる|
-|todo|TODOタスク|
-|want|余裕があれば、入れたい|
+## WebAppサーバ
+* Unicorn
+※設定はslackへ
+
+## Deploy
+* Capistrano
+※設定はslackへ
+
+## routes
+* admin始まりのものが管理機能となる
+* job始まりのものがバッチ機能となる
+
+## develop
+基本的にはslack上でやりとりする。シクレキーなどが入ってくるようなものは別途管理する必要ある
+
+* rails warnを出さないように気をつける→コンソールでwarn表示がないか確認(当然errorはありえない)
+
+## pullrequest
+基本的にはpullrequest
+
+# GET STARTED
+
+1. ruby/harmox-admin/db/document/create_database.sql流すよ
+2. `bundle exec rake db:schema:load`
+
+```
+├── app
+│   ├── assets
+│   │   ├── images
+│   │   ├── javascripts
+│   │   │   ├── admin
+│   │   │   ├── application.js
+│   │   │   └── job
+│   │   └── stylesheets
+│   │       ├── admin
+│   │       ├── application.css
+│   │       └── job
+│   ├── controllers
+│   │   ├── admin
+│   │   ├── application_controller.rb
+│   │   ├── concerns
+│   │   └── job
+│   ├── helpers
+│   │   ├── admin
+│   │   ├── application_helper.rb
+│   │   └── job
+│   ├── mailers
+│   ├── models
+│   └── views
+│       ├── admin
+│       ├── job
+│       ├── layouts
+│       └── shared
+```
